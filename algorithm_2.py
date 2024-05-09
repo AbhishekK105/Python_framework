@@ -62,39 +62,39 @@ def graph_edit_distance(graph1, graph2, node_cost=None, edge_cost=None):
 
 # Example usage:
 # Create two example graphs with node attributes
-graph_a = nx.Graph([(1, 2), (2, 3)])
-graph_a.nodes[1]["attribute"] = 3
-graph_a.nodes[2]["attribute"] = 5
-graph_a.nodes[3]["attribute"] = 7
+# graph_a = nx.Graph([(1, 2), (2, 3)])
+# graph_a.nodes[1]["attribute"] = 3
+# graph_a.nodes[2]["attribute"] = 5
+# graph_a.nodes[3]["attribute"] = 7
 
-graph_b = nx.Graph([(10, 20), (20, 30)])
-graph_b.nodes[10]["attribute"] = 2
-graph_b.nodes[20]["attribute"] = 5
-graph_b.nodes[30]["attribute"] = 8
+# graph_b = nx.Graph([(10, 20), (20, 30)])
+# graph_b.nodes[10]["attribute"] = 2
+# graph_b.nodes[20]["attribute"] = 5
+# graph_b.nodes[30]["attribute"] = 8
 
-# Compute the graph edit distance
-ged = graph_edit_distance(graph_a, graph_b)
-print(f"Graph Edit Distance: {ged}")
+# # Compute the graph edit distance
+# ged = graph_edit_distance(graph_a, graph_b)
+# print(f"Graph Edit Distance: {ged}")
 
-print("\n")
-print("Next comparison")
-# Graph C
-graph_c = nx.Graph([(1, 2), (2, 3), (3, 4)])
-graph_c.nodes[1]["attribute"] = 3
-graph_c.nodes[2]["attribute"] = 5
-graph_c.nodes[3]["attribute"] = 7
-graph_c.nodes[4]["attribute"] = 2
+# print("\n")
+# print("Next comparison")
+# # Graph C
+# graph_c = nx.Graph([(1, 2), (2, 3), (3, 4)])
+# graph_c.nodes[1]["attribute"] = 3
+# graph_c.nodes[2]["attribute"] = 5
+# graph_c.nodes[3]["attribute"] = 7
+# graph_c.nodes[4]["attribute"] = 2
 
-# Graph D
-graph_d = nx.Graph([(10, 20), (20, 30), (30, 40)])
-graph_d.nodes[10]["attribute"] = 2
-graph_d.nodes[20]["attribute"] = 5
-graph_d.nodes[30]["attribute"] = 8
-graph_d.nodes[40]["attribute"] = 1
+# # Graph D
+# graph_d = nx.Graph([(10, 20), (20, 30), (30, 40)])
+# graph_d.nodes[10]["attribute"] = 2
+# graph_d.nodes[20]["attribute"] = 5
+# graph_d.nodes[30]["attribute"] = 8
+# graph_d.nodes[40]["attribute"] = 1
 
-ged_2 = graph_edit_distance(graph_a, graph_b)
+# ged_2 = graph_edit_distance(graph_a, graph_b)
 
-print(f"Graph Edit Distance: {ged_2}")
+# print(f"Graph Edit Distance: {ged_2}")
 
 
 def graph_edit_distance_single_to_many(
@@ -160,22 +160,22 @@ def graph_edit_distance_single_to_many(
 
 
 # Example usage:
-# Create a single example graph with node attributes
-single_graph = nx.Graph([(1, 2), (2, 3)])
-single_graph.nodes[1]["attribute"] = 3
-single_graph.nodes[2]["attribute"] = 5
-single_graph.nodes[3]["attribute"] = 7
+# # Create a single example graph with node attributes
+# single_graph = nx.Graph([(1, 2), (2, 3)])
+# single_graph.nodes[1]["attribute"] = 3
+# single_graph.nodes[2]["attribute"] = 5
+# single_graph.nodes[3]["attribute"] = 7
 
-# Create multiple example graphs with node attributes
-many_graphs = [
-    nx.Graph([(10, 20), (20, 30)]),
-    nx.Graph([(5, 10), (5, 15), (10, 15)]),
-    nx.Graph([(1, 2), (2, 3), (3, 4)]),
-]
+# # Create multiple example graphs with node attributes
+# many_graphs = [
+#     nx.Graph([(10, 20), (20, 30)]),
+#     nx.Graph([(5, 10), (5, 15), (10, 15)]),
+#     nx.Graph([(1, 2), (2, 3), (3, 4)]),
+# ]
 
-# Compute the graph edit distances
-ged_list = graph_edit_distance_single_to_many(single_graph, many_graphs)
+# # Compute the graph edit distances
+# ged_list = graph_edit_distance_single_to_many(single_graph, many_graphs)
 
-print("Graph Edit Distances:")
-for i, ged in enumerate(ged_list):
-    print(f"Graph {i + 1}: {ged}")
+# print("Graph Edit Distances:")
+# for i, ged in enumerate(ged_list):
+#     print(f"Graph {i + 1}: {ged}")

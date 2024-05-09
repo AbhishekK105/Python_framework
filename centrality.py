@@ -8,12 +8,20 @@ class CentralityAnalyzer:
 
     def degree_centrality(self):
         return nx.degree_centrality(self.graph)
+    # though the degree centrality is same as the betweenness centrality, 
+    # we can use the same function. Though it is defined here it will not be used. 
 
     def betweenness_centrality(self):
         return nx.betweenness_centrality(self.graph)
+    # The betweenness centrality is defined as Node in line of shortest path between other nodes.
+    # The SE Implications: The failure rating of this reliability should be increased
+
 
     def closeness_centrality(self):
         return nx.closeness_centrality(self.graph)
+    # The closeness centrality is defined as How close a node is to all the other nodes in terms of shortest path
+    # The SE Implications: the node with the highest closeness centrality is more central to the architecture. 
+
 
     def top_nodes_by_centrality(self, centrality_measure, top_n=3):
         centrality_scores = centrality_measure()
@@ -39,13 +47,13 @@ class CentralityAnalyzer:
         return sorted_nodes
 
     def centrality_table(self):
-        degree_cent = self.degree_centrality()
+        # degree_cent = self.degree_centrality()
         betweenness_cent = self.betweenness_centrality()
         closeness_cent = self.closeness_centrality()
 
         centrality_data = {
             "Node": list(self.graph.nodes()),
-            "Degree Centrality": [degree_cent[node] for node in self.graph.nodes()],
+            # "Degree Centrality": [degree_cent[node] for node in self.graph.nodes()],
             "Betweenness Centrality": [
                 betweenness_cent[node] for node in self.graph.nodes()
             ],
@@ -68,6 +76,7 @@ if __name__ == "__main__":
     analyzer = CentralityAnalyzer(G)
 
     # Print centrality measures in tabulated format
-    analyzer.top_nodes_by_centrality(analyzer.degree_centrality)
+    # analyzer.top_nodes_by_centrality(analyzer.degree_centrality)
     analyzer.top_nodes_by_centrality(analyzer.betweenness_centrality)
     analyzer.top_nodes_by_centrality(analyzer.closeness_centrality)
+    print(analyzer.centrality_table())
