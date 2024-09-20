@@ -1,10 +1,15 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+from pyvis.network import Network
+import numpy as np
+import random
 from input_network_xl import (
     draw_graph,
     create_graph_from_excel_6,
     plot_graphs_side_by_side,
     add_node_attributes_from_excel,
+    draw_graph_pyvis,
+    assign_positions_pyvis,
 )
 from centrality import *  # noqa: F403
 from algorithm_2 import graph_edit_distance
@@ -15,18 +20,20 @@ from node_connectivity import (
     analyze_system_multiple,
     analyze_node_connectivity_Di,
 )
+from battery_model2 import Battery_Pack
 
 excel_path = "/Users/abhishekkiran/Documents/Arch_1_DConly.xlsx"
 # excel_path_2 = "/Users/abhishekkiran/Documents/Test_2.xlsx"
 Arch_1 = create_graph_from_excel_6(excel_path)
-# Arch_2 = create_graph_from_excel_6(excel_path_2)
+#Arch_2 = create_graph_from_excel_6(excel_path_2)
 # graph2 = create_graph_from_excel_4(excel_path)
 # graph3 = create_graph_from_excel_5(excel_path)
 draw_graph(Arch_1)
 # draw_graph(Arch_2)
-# plot_graphs_side_by_side([Arch_1, Arch_2], ["Arch_1", "Arch_2"])
+#plot_graphs_side_by_side([Arch_1, Arch_2], ["Arch_1", "Arch_2"])
 # draw_graph(graph2)
 # draw_graph(graph3)
+
 
 add_node_attributes_from_excel(Arch_1, excel_path, "Attribute")
 
@@ -64,3 +71,45 @@ print("Node attributes:")
 for node, attrs in Arch_1.nodes(data=True):
     print(node, attrs)
 # analyze_system_multiple([Arch_1, Arch_2])
+
+
+# Example data (you should replace these with your actual values)
+en_density = 133  # Wh/kg
+cell_capacity = 2.5  # Ah
+nom_tension = 3.7  # V
+sys_tension = 14.8  # V
+
+# Example aging data (placeholder, can be adjusted as needed)
+aging_data = {
+    'T_store': 25,  # Storage temperature in Celsius
+    'Delta_DOD': 0,  # Change in Depth of Discharge
+    'V_rms': 3.7,  # RMS Voltage
+    'Discharge per Cycle': 2.5,  # Discharge capacity per cycle in Ah
+}
+
+# Initialize the Battery_Pack
+battery_pack = Battery_Pack(en_density, cell_capacity, nom_tension, sys_tension, aging_data)
+
+# Step 1: Size the battery pack
+battery_pack.size(
+    target_dod=0.8,       # Target depth of discharge
+    max_capacity=100,     # Maximum capacity in Ah
+    P_points=[1000, 1200, 1500],  # Power profile in watts (example values)
+    t_points=[0, 10, 20], # Time points in seconds (example values)
+    verbose=True
+)
+
+# The mass of the battery pack is now calculated
+battery_mass = battery_pack.mass
+print(f"Battery Pack Mass: {battery_mass} kg")
+
+battery_pack.calculate(
+    P_pts=np.array([100, 200, 150, 300]),  # Power profile in watts
+    t_pts=np.array([0, 1, 2, 3])          # Time points in hours 
+)
+# Accessing results
+print("Voltage over time:", battery_pack.V)
+print("Current over time:", battery_pack.I)
+print("Depth of Discharge (DOD) over time:", battery_pack.DOD)
+print("Open Circuit Voltage (V_OC) over time:", battery_pack.V_OC)
+print("Efficiency over time:", battery_pack.eff)

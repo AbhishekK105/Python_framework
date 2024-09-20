@@ -1,0 +1,72 @@
+{
+    "directed": true,
+    "multigraph": false,
+    "graph": {},
+    "nodes": [
+        {
+            "label": "System weight shall not exceed 15 kg",
+            "node_type": "requirement",
+            "id": "Req1"
+        },
+        {
+            "node_type": "component",
+            "id": "motor"
+        },
+        {
+            "node_type": "component",
+            "id": "battery"
+        },
+        {
+            "node_type": "constraint",
+            "id": "max_weight: 15"
+        },
+        {
+            "label": "Motor shall run at 5000 RPM",
+            "node_type": "requirement",
+            "id": "Req2"
+        },
+        {
+            "node_type": "constraint",
+            "id": "min_rpm: 5000"
+        },
+        {
+            "label": "Battery shall provide 12V",
+            "node_type": "requirement",
+            "id": "Req3"
+        },
+        {
+            "node_type": "constraint",
+            "id": "min_voltage: 12"
+        }
+    ],
+    "links": [
+        {
+            "source": "Req1",
+            "target": "motor"
+        },
+        {
+            "source": "Req1",
+            "target": "battery"
+        },
+        {
+            "source": "Req1",
+            "target": "max_weight: 15"
+        },
+        {
+            "source": "Req2",
+            "target": "motor"
+        },
+        {
+            "source": "Req2",
+            "target": "min_rpm: 5000"
+        },
+        {
+            "source": "Req3",
+            "target": "battery"
+        },
+        {
+            "source": "Req3",
+            "target": "min_voltage: 12"
+        }
+    ]
+}

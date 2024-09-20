@@ -194,8 +194,6 @@ def analyze_node_connectivity_Di(graph):
 
     return critical_nodes, consequences
 
-import pandas as pd
-
 def analyze_system_multiple_Di(graphs):
     """
     Analyze systems for multiple graphs and print out the results in a tabular format.
