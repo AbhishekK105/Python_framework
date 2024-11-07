@@ -4,9 +4,19 @@ import json
 
 # Sample Requirements Input
 requirements = {
-    'Req1': {'description': 'System weight shall not exceed 15 kg', 'components': ['motor', 'battery'], 'constraints': {'max_weight': 15}},
+    'Req1': {'description': 'System weight shall not exceed 10000 kg', 'components': ['motor', 'battery'], 'constraints': {'max_weight': 10000}},
     'Req2': {'description': 'Motor shall run at 5000 RPM', 'components': ['motor'], 'constraints': {'min_rpm': 5000}},
-    'Req3': {'description': 'Battery shall provide 12V', 'components': ['battery'], 'constraints': {'min_voltage': 12}},
+    'Req3': {'description': 'Battery shall provide 2000V', 'components': ['battery'], 'constraints': {'min_voltage': 2000}},
+    'Req4': {'description': 'System shall operate in temperatures between -20°C and 50°C', 'components': ['motor', 'battery'], 'constraints': {'min_temp': -20, 'max_temp': 50}},
+    'Req5': {'description': 'Battery capacity shall be at least 7500 mAh', 'components': ['battery'], 'constraints': {'min_capacity': 7500}},
+    'Req6': {'description': 'Motor shall have a torque of at least 15000 Nm', 'components': ['motor'], 'constraints': {'min_torque': 15000}},
+    'Req7': {'description': 'System noise level shall not exceed 75 dB', 'components': ['motor'], 'constraints': {'max_noise': 85}},
+    'Req8': {'description': 'System shall be operational for at least 5 hours continuously', 'components': ['motor', 'battery'], 'constraints': {'min_operational_time': 5}},
+    'Req9': {'description': 'Battery charging time shall not exceed 3 hours', 'components': ['battery'], 'constraints': {'max_charging_time': 3}},
+    'Req10': {'description': 'Motor shall have a lifespan of at least 10,000 hours', 'components': ['motor'], 'constraints': {'min_lifespan': 10000}},
+    'Req11': {'description': 'System shall be protected against water and dust (IP65 rating)', 'components': ['motor', 'battery'], 'constraints': {'min_protection_rating': 'IP65'}},
+    'Req12': {'description': 'System cost shall not exceed $1500000', 'components': ['motor', 'battery'], 'constraints': {'max_cost': 1.5}},
+    'Req13': {'description': 'System shall be operational at altitudes up to 10000 meters', 'components': ['motor', 'battery'], 'constraints': {'max_altitude': 10000}},
 }
 
 # Components list (could be expanded as needed)

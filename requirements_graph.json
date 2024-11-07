@@ -4,7 +4,7 @@
     "graph": {},
     "nodes": [
         {
-            "label": "System weight shall not exceed 15 kg",
+            "label": "System weight shall not exceed 10000 kg",
             "node_type": "requirement",
             "id": "Req1"
         },
@@ -17,8 +17,13 @@
             "id": "battery"
         },
         {
-            "node_type": "constraint",
-            "id": "max_weight: 15"
+            "node_type": "variable",
+            "id": "weight"
+        },
+        {
+            "node_type": "value",
+            "value": 12000,
+            "id": "weight_upper_value"
         },
         {
             "label": "Motor shall run at 5000 RPM",
@@ -26,47 +31,123 @@
             "id": "Req2"
         },
         {
-            "node_type": "constraint",
-            "id": "min_rpm: 5000"
+            "node_type": "variable",
+            "id": "rpm"
         },
         {
-            "label": "Battery shall provide 12V",
+            "node_type": "value",
+            "value": 5000,
+            "id": "rpm_lower_value"
+        },
+        {
+            "label": "Battery shall provide 2000V",
             "node_type": "requirement",
             "id": "Req3"
         },
         {
-            "node_type": "constraint",
-            "id": "min_voltage: 12"
+            "node_type": "variable",
+            "id": "voltage"
+        },
+        {
+            "node_type": "value",
+            "value": 2000,
+            "id": "voltage_lower_value"
+        },
+        {
+            "label": "System shall operate in temperatures between -20\u00b0C and 50\u00b0C",
+            "node_type": "requirement",
+            "id": "Req4"
+        },
+        {
+            "node_type": "variable",
+            "id": "temperature"
+        },
+        {
+            "node_type": "value",
+            "value": -20,
+            "id": "temperature_lower_value"
+        },
+        {
+            "node_type": "value",
+            "value": 50,
+            "id": "temperature_upper_value"
         }
     ],
     "links": [
         {
+            "relation": "includes",
             "source": "Req1",
             "target": "motor"
         },
         {
+            "relation": "includes",
             "source": "Req1",
             "target": "battery"
         },
         {
+            "relation": "requires",
             "source": "Req1",
-            "target": "max_weight: 15"
+            "target": "weight"
         },
         {
+            "relation": "upper",
+            "source": "weight",
+            "target": "weight_upper_value"
+        },
+        {
+            "relation": "includes",
             "source": "Req2",
             "target": "motor"
         },
         {
+            "relation": "requires",
             "source": "Req2",
-            "target": "min_rpm: 5000"
+            "target": "rpm"
         },
         {
+            "relation": "lower",
+            "source": "rpm",
+            "target": "rpm_lower_value"
+        },
+        {
+            "relation": "includes",
             "source": "Req3",
             "target": "battery"
         },
         {
+            "relation": "requires",
             "source": "Req3",
-            "target": "min_voltage: 12"
+            "target": "voltage"
+        },
+        {
+            "relation": "lower",
+            "source": "voltage",
+            "target": "voltage_lower_value"
+        },
+        {
+            "relation": "includes",
+            "source": "Req4",
+            "target": "motor"
+        },
+        {
+            "relation": "includes",
+            "source": "Req4",
+            "target": "battery"
+        },
+        {
+            "relation": "requires",
+            "source": "Req4",
+            "target": "temperature"
+        },
+        {
+            "relation": "lower",
+            "source": "temperature",
+            "target": "temperature_lower_value"
+        },
+        {
+            "relation": "upper",
+            "source": "temperature",
+            "target": "temperature_upper_value"
         }
     ]
 }

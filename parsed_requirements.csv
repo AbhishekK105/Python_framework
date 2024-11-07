@@ -1,0 +1,6 @@
+requirement_id,description,component,variable,limit_type,value,unit
+Req1,System weight shall not exceed 10000 kg,"motor, battery",weight,upper,10000.0,kg
+Req2,Motor shall run at 5000 RPM,motor,rpm,lower,5000.0,RPM
+Req3,Battery shall provide 2000V,battery,voltage,lower,2000.0,V
+Req4,System shall operate in temperatures between -20°C and 50°C,"motor, battery",,lower,-20.0,°C
+Req4,System shall operate in temperatures between -20°C and 50°C,"motor, battery",,upper,50.0,°C
