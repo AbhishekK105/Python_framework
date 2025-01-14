@@ -23,13 +23,13 @@ from node_connectivity import (
 from battery_model2 import Battery_Pack
 
 excel_path = "/Users/abhishekkiran/Documents/Arch_1_DConly.xlsx"
-# excel_path_2 = "/Users/abhishekkiran/Documents/Test_2.xlsx"
+excel_path_2 = "/Users/abhishekkiran/Documents/Test_2.xlsx"
 Arch_1 = create_graph_from_excel_6(excel_path)
-#Arch_2 = create_graph_from_excel_6(excel_path_2)
+Arch_2 = create_graph_from_excel_6(excel_path_2)
 # graph2 = create_graph_from_excel_4(excel_path)
 # graph3 = create_graph_from_excel_5(excel_path)
 draw_graph(Arch_1)
-# draw_graph(Arch_2)
+draw_graph(Arch_2)
 #plot_graphs_side_by_side([Arch_1, Arch_2], ["Arch_1", "Arch_2"])
 # draw_graph(graph2)
 # draw_graph(graph3)
@@ -37,9 +37,40 @@ draw_graph(Arch_1)
 
 add_node_attributes_from_excel(Arch_1, excel_path, "Attribute")
 
-Analyse_Cent = CentralityAnalyzer(Arch_1)
-Analyse_Cent.top_nodes_by_centrality(Analyse_Cent.betweenness_centrality, top_n=3)
-Analyse_Cent.top_nodes_by_centrality(Analyse_Cent.closeness_centrality, top_n=3)
+Analyse_Cent_1 = CentralityAnalyzer(Arch_1)
+#Analyse_Cent_1.top_nodes_by_centrality(Analyse_Cent_1.betweenness_centrality, top_n=3)
+#Analyse_Cent_1.top_nodes_by_centrality(Analyse_Cent_1.closeness_centrality, top_n=3)
+
+Analyse_Cent_2 = CentralityAnalyzer(Arch_2)
+#Analyse_Cent_2.top_nodes_by_centrality(Analyse_Cent_2.betweenness_centrality, top_n=3)
+#Analyse_Cent_2.top_nodes_by_centrality(Analyse_Cent_2.closeness_centrality, top_n=3)
+
+centrality_data_1 = {
+    "betweenness": Analyse_Cent_1.top_nodes_by_centrality(Analyse_Cent_1.betweenness_centrality, top_n=3),
+    "closeness": Analyse_Cent_1.top_nodes_by_centrality(Analyse_Cent_1.closeness_centrality, top_n=3)
+}
+
+centrality_data_2 = {
+    "betweenness": Analyse_Cent_2.top_nodes_by_centrality(Analyse_Cent_2.betweenness_centrality, top_n=3),
+    "closeness": Analyse_Cent_2.top_nodes_by_centrality(Analyse_Cent_2.closeness_centrality, top_n=3)
+}
+
+
+betweenness_comparison = compare_centralities(centrality_data_1, centrality_data_2, "betweenness")
+closeness_comparison = compare_centralities(centrality_data_1, centrality_data_2, "closeness")
+
+#print_better_nodes(betweenness_comparison, "Betweenness")
+print("\n")
+#print_better_nodes(closeness_comparison, "Closeness")
+
+print("Comparison of Betweenness Centrality:")
+for node, val1, val2, diff in betweenness_comparison:
+    print(f"Node: {node}, Arch_1: {val1}, Arch_2: {val2}, Difference: {diff}")
+
+print("\nComparison of Closeness Centrality:")
+for node, val1, val2, diff in closeness_comparison:
+    print(f"Node: {node}, Arch_1: {val1}, Arch_2: {val2}, Difference: {diff}")
+
 
 # Centrality_1 = Analyse_Cent.centrality_table()
 # print(Centrality_1)
@@ -53,6 +84,7 @@ Analyse_Cent.top_nodes_by_centrality(Analyse_Cent.closeness_centrality, top_n=3)
 
 strongly_connected = nx.is_strongly_connected(Arch_1)
 print("Strongly connected:", strongly_connected)
+print("\n")
 
 # Check weak connectivity
 weakly_connected = nx.is_weakly_connected(Arch_1)

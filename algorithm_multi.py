@@ -26,30 +26,6 @@ def graph_edit_distance_single_to_many(single_graph, many_graphs):
     return ged_list
 
 
-# Create a single example graph with random node attributes and edge weights
-single_graph = nx.erdos_renyi_graph(10, 0.4)
-for node in single_graph.nodes:
-    single_graph.nodes[node]["attribute"] = np.random.randint(1, 10)
-
-for edge in single_graph.edges(data=True):
-    edge[2]["weight"] = np.random.randint(1, 5)
-
-# Create multiple example graphs with random node attributes, edge weights, and different structures
-many_graphs = [
-    nx.erdos_renyi_graph(10, 0.4),
-    nx.barabasi_albert_graph(10, 2),
-    nx.random_tree(10),
-    nx.watts_strogatz_graph(10, 4, 0.3),
-]
-
-# Compute the graph edit distances
-ged_list = graph_edit_distance_single_to_many(single_graph, many_graphs)
-
-print("Graph Edit Distances:")
-for i, ged in enumerate(ged_list):
-    print(f"Graph {i + 1}: {ged}")
-
-
 def visualize_graph(graph, title):
     pos = nx.spring_layout(graph)
     labels = nx.get_edge_attributes(graph, "weight")
@@ -58,13 +34,6 @@ def visualize_graph(graph, title):
     plt.title(title)
     plt.show()
 
-
-# Visualize the single graph
-visualize_graph(single_graph, "Single Graph")
-
-# Visualize the multiple graphs
-for i, graph in enumerate(many_graphs):
-    visualize_graph(graph, f"Graph {i + 1}")
 
 
 def graph_edit_distance(graph1, graph2, node_cost=None, edge_cost=None):
@@ -121,43 +90,6 @@ def graph_edit_distance(graph1, graph2, node_cost=None, edge_cost=None):
     )
 
     return ged
-
-
-# Example usage:
-# Create two example graphs with node attributes
-# graph_a = nx.Graph([(1, 2), (2, 3)])
-# graph_a.nodes[1]["attribute"] = 3
-# graph_a.nodes[2]["attribute"] = 5
-# graph_a.nodes[3]["attribute"] = 7
-
-# graph_b = nx.Graph([(10, 20), (20, 30)])
-# graph_b.nodes[10]["attribute"] = 2
-# graph_b.nodes[20]["attribute"] = 5
-# graph_b.nodes[30]["attribute"] = 8
-
-# # Compute the graph edit distance
-# ged = graph_edit_distance(graph_a, graph_b)
-# print(f"Graph Edit Distance: {ged}")
-
-# print("\n")
-# print("Next comparison")
-# # Graph C
-# graph_c = nx.Graph([(1, 2), (2, 3), (3, 4)])
-# graph_c.nodes[1]["attribute"] = 3
-# graph_c.nodes[2]["attribute"] = 5
-# graph_c.nodes[3]["attribute"] = 7
-# graph_c.nodes[4]["attribute"] = 2
-
-# # Graph D
-# graph_d = nx.Graph([(10, 20), (20, 30), (30, 40)])
-# graph_d.nodes[10]["attribute"] = 2
-# graph_d.nodes[20]["attribute"] = 5
-# graph_d.nodes[30]["attribute"] = 8
-# graph_d.nodes[40]["attribute"] = 1
-
-# ged_2 = graph_edit_distance(graph_a, graph_b)
-
-# print(f"Graph Edit Distance: {ged_2}")
 
 
 def graph_edit_distance_single_to_many(
@@ -220,6 +152,3 @@ def graph_edit_distance_single_to_many(
         ged_list.append(ged)
 
     return ged_list
-
-
-

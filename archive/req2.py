@@ -8,7 +8,6 @@ requirements = {
     'Req2': {'description': 'Motor shall run at 5000 RPM', 'components': ['motor'], 'constraints': {'min_rpm': 5000}},
     'Req3': {'description': 'Battery shall provide 2000V', 'components': ['battery'], 'constraints': {'min_voltage': 2000}},
     'Req4': {'description': 'System shall operate in temperatures between -20°C and 50°C', 'components': ['motor', 'battery'], 'constraints': {'min_temp': -20, 'max_temp': 50}},
-    # Additional requirements as necessary
 }
 
 # Define dictionary for variable keywords and limit keywords

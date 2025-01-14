@@ -22,26 +22,8 @@ def convert_xmi_to_csv(input_file, output_file):
                 csvwriter.writerow([element_name, attribute_name, value])
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # Example usage:
-if __name__ == "__main__":
-    input_file = 'input.xmi'  # Replace with your XMI file path
-    output_file = 'output.csv'  # Replace with desired CSV output path
-    convert_xmi_to_csv(input_file, output_file)
+#if __name__ == "__main__":
+ #   input_file = 'input.xmi'  # Replace with your XMI file path
+  #  output_file = 'output.csv'  # Replace with desired CSV output path
+   # convert_xmi_to_csv(input_file, output_file)

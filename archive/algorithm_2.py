@@ -159,23 +159,4 @@ def graph_edit_distance_single_to_many(
     return ged_list
 
 
-# Example usage:
-# # Create a single example graph with node attributes
-# single_graph = nx.Graph([(1, 2), (2, 3)])
-# single_graph.nodes[1]["attribute"] = 3
-# single_graph.nodes[2]["attribute"] = 5
-# single_graph.nodes[3]["attribute"] = 7
 
-# # Create multiple example graphs with node attributes
-# many_graphs = [
-#     nx.Graph([(10, 20), (20, 30)]),
-#     nx.Graph([(5, 10), (5, 15), (10, 15)]),
-#     nx.Graph([(1, 2), (2, 3), (3, 4)]),
-# ]
-
-# # Compute the graph edit distances
-# ged_list = graph_edit_distance_single_to_many(single_graph, many_graphs)
-
-# print("Graph Edit Distances:")
-# for i, ged in enumerate(ged_list):
-#     print(f"Graph {i + 1}: {ged}")

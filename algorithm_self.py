@@ -75,31 +75,29 @@ class CentralityAnalyzer:
         centrality_df = pd.DataFrame(centrality_data)
         return centrality_df
 
+def compare_centralities(data1, data2, metric):
+    result = []
+    for (node1, value1) in data1[metric]:
+        matched = False
+        for (node2, value2) in data2[metric]:
+            if node1 == node2:
+                matched = True
+                result.append((node1, value1, value2, value1 - value2))
+        if not matched:
+            result.append((node1, value1, None, None))
+    for (node2, value2) in data2[metric]:
+        if node2 not in [node1 for node1, _, _, _ in result]:
+            result.append((node2, None, value2, None))
+    return result
 
-# Example Usage:
-if __name__ == "__main__":
-    # Create a sample graph (nodes and their connections)
-    G = nx.Graph()
-    G.add_edges_from([(1, 2), (1, 3), (2, 3), (3, 4), (4, 5)])
-
-    # Initialize centrality analyzer
-    analyzer = CentralityAnalyzer(G)
-
-    # Top nodes by centrality measures (Degree, Betweenness, Closeness)
-    print("\n--- Degree Centrality Analysis ---")
-    analyzer.top_nodes_by_centrality(analyzer.degree_centrality)
-
-    print("\n--- Betweenness Centrality Analysis ---")
-    analyzer.top_nodes_by_centrality(analyzer.betweenness_centrality)
-
-    print("\n--- Closeness Centrality Analysis ---")
-    analyzer.top_nodes_by_centrality(analyzer.closeness_centrality)
-
-    # Display centrality table with all measures
-    centrality_df = analyzer.centrality_table()
-    print("\nCentrality Table (Degree, Betweenness, Closeness):")
-    print(centrality_df)
-
+def print_better_nodes(comparison, metric_name):
+    print(f"Nodes where one architecture does better for {metric_name} Centrality:")
+    for node, val1, val2, diff in comparison:
+        if diff is not None:  # Ensure we have a valid comparison
+            if diff > 0:
+                print(f"Node: {node}, Arch_1: {val1} (better), Arch_2: {val2}")
+            elif diff < 0:
+                print(f"Node: {node}, Arch_2: {val2} (better), Arch_1: {val1}")
 
 # Function to load a graph from a JSON or GraphML file
 def load_graph(file_path, file_format='json'):
@@ -176,13 +174,7 @@ def combine_graphs(file1, file2, output_file, input_format='json', output_format
     save_graph(combined_graph, output_file, file_format=output_format)
     print(f"Combined graph saved to {output_file} in {output_format} format.")
 
-# Example usage
-file1 = 'graph1.json'  # Input file path for first graph
-file2 = 'graph2.json'  # Input file path for second graph
-output_file = 'combined_graph.json'  # Output file path for the combined graph
 
-# Combine the graphs (you can change formats as needed)
-combine_graphs(file1, file2, output_file, input_format='json', output_format='json')
 
 
 def analyze_node_connectivity(graph):
@@ -428,40 +420,3 @@ def analyze_system_multiple_Di(graphs):
 
 
 
-# Example usage:
-if __name__ == "__main__":
-    # Create a sample graph representing the system architecture
-    G = nx.Graph()
-    G.add_edges_from(
-        [
-            ("Power Distribution Unit", "Generator"),
-            ("Generator", "Avionics System"),
-            ("Generator", "Control Surfaces"),
-            ("Avionics System", "Flight Control System"),
-            ("Control Surfaces", "Flight Control System"),
-        ]
-    )
-
-    critical_nodes, consequences = analyze_node_connectivity(G)
-
-    # Print results
-    print("Critical Nodes:", critical_nodes)
-    print("Consequences of Node Failures:")
-    for node, details in consequences.items():
-        print(f"Node: {node}")
-        print(f"- Neighbors: {details['Neighbors']}")
-        print(f"- Potential Consequences: {details['Potential Consequences']}")
-
-    # Analyze components
-    analyze_components_input(G)
-
-    # Get component name from the user
-    component_name = input("Enter the name of the component you want to analyze: ")
-
-    # Find neighboring immediate components of the specified component
-    neighboring_components = find_neighboring_components(G, component_name)
-
-    # Print neighboring immediate components
-    print(f"Neighboring immediate components of {component_name}:")
-    for neighbor in neighboring_components:
-        print("-", neighbor)
