@@ -3,11 +3,15 @@ import csv
 
 # Sample Requirements Input
 requirements = {
-    'Req1': {'description': 'System weight shall not exceed 10000 kg', 'components': ['motor', 'battery'], 'constraints': {'max_weight': '10000 kg'}},
-    'Req2': {'description': 'Motor shall run at 5000 RPM', 'components': ['motor'], 'constraints': {'min_rpm': '5000 RPM'}},
-    'Req3': {'description': 'Battery shall provide 2000V', 'components': ['battery'], 'constraints': {'min_voltage': '2000 V'}},
-    'Req4': {'description': 'System shall operate in temperatures between -20°C and 50°C', 'components': ['motor', 'battery'], 'constraints': {'min_temp': '-20 °C', 'max_temp': '50 °C'}},
-    # Add more requirements as necessary
+    "The battery shall achieve an energy density of not less than 300 Wh/kg under standard test conditions.", 
+    "The battery shall demonstrate a cycle life of 1,000 to 3,000 cycles while maintaining at least 80% of initial capacity.", 
+    "The battery shall maintain functional performance for a minimum of 10 years and up to 15 years under normal operating conditions.", 
+    "The battery shall be designed with a safety factor of 1.4.", 
+    "The motor shall provide a continuous power output within the range of 0.25 MW to 1 MW.", 
+    "The motor shall achieve a power density between 5 kW/kg and 20 kW/kg, validated under standard operating conditions.", 
+    "The propeller rotational speed shall operate within a range of 1,000 to 1,600 rpm.", 
+    "The first mode of vibration of the motor shall be no less than 15,000 rpm."
+
 }
 
 # Define keywords to identify variables and limit types
@@ -82,15 +86,9 @@ value_unit_pattern = re.compile(r"(-?\d+\.?\d*)\s*([a-zA-Z%°]*)")
 
 # Function to parse each requirement description
 def parse_requirement(description):
-    components = []
     constraints = {}
 
-    # Check for any component in the description from the components list
-    for component in components:
-        if component.lower() in description.lower():
-            components.append(component)
-
-    # Search for variable and limit keywords in description
+    # Search for variable and limit keywords in the description
     for variable, var_key in variable_keywords.items():
         if variable in description.lower():
             for limit, limit_type in limit_keywords.items():
@@ -102,7 +100,7 @@ def parse_requirement(description):
                         unit = match.group(2) or None
                         constraint_key = f"{limit}_{var_key}"
                         constraints[constraint_key] = f"{value} {unit}".strip()
-    return components, constraints
+    return constraints
 
 # Function to convert requirements list to numbered dictionary with parsed components and constraints
 def generate_requirements_dict(requirements_list):
@@ -157,7 +155,6 @@ def extract_requirements_data(requirements):
             })
     return parsed_requirements
 
-# Function to save parsed data to CSV
 def save_to_csv(parsed_data, filename='parsed_requirements.csv'):
     # Define CSV column headers
     headers = ['requirement_id', 'description', 'component', 'variable', 'limit_type', 'value', 'unit']
@@ -168,7 +165,6 @@ def save_to_csv(parsed_data, filename='parsed_requirements.csv'):
             writer.writerow(data)
 
 # Parse the requirements and save to CSV
-parsed_data = parse_requirement(requirements)
+parsed_data = extract_requirements_data(requirements)
 save_to_csv(parsed_data)
-
 print("Parsed requirements have been saved to 'parsed_requirements.csv'")

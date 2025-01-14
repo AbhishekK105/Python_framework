@@ -11,8 +11,8 @@ from input_network_xl import (
     draw_graph_pyvis,
     assign_positions_pyvis,
 )
-from centrality import *  # noqa: F403
-from algorithm_2 import graph_edit_distance
+from algorithm_multi import *  # noqa: F403
+from algorithm_self import *
 from node_connectivity import (
     analyze_node_connectivity,
     analyze_components_input,
